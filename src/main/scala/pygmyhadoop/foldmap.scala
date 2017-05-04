@@ -12,13 +12,13 @@ import scala.language.higherKinds
 
 object foldmap {
   object sequential {
-    def foldMap[A, B: Monoid](it: Iterable[A])(f: A => B = identity[A] _): B = it.foldLeft(Monoid[B].empty)(_ |+| f(_))
+    def foldMap[A, B: Monoid](it: Iterable[A])(f: A => B = identity[A](_)): B = it.foldLeft(Monoid[B].empty)(_ |+| f(_))
 //    def foldMap[A, B: Monoid](it: Iterable[A])(f: A => B): B = it.foldLeft(Monoid[B].empty)(_ |+| f(_))
 //    def foldMap[A, B: Monoid](it: Iterable[A])(f: A => B): B = monadic.foldMap(it)(f(_).pure[Id])
   }
 
   object parallel {
-    def foldMap[A, B: Monoid](it: Iterable[A])(f: A => B = identity[A] _): Future[B] = {
+    def foldMap[A, B: Monoid](it: Iterable[A])(f: A => B = identity[A](_)): Future[B] = {
 //    def foldMap[A, B: Monoid](it: Iterable[A])(f: A => B): Future[B] = {
       val numCores: Int = Runtime.getRuntime.availableProcessors
       val groupSize: Int = (1.0 * it.size / numCores).ceil.toInt
