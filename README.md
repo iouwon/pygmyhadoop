@@ -1,0 +1,1 @@
+Lines 15, 21 and 36 are the commented out lines with default funcs where B (or M[B]) is not inferred
