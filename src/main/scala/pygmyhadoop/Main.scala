@@ -29,6 +29,13 @@ object Main extends App {
 
   println(
     foldMap[String, ErrorOr, ErrorOr, Int]
+      (List("1", "2", "3"))
+      (a => Either.catchOnly[NumberFormatException](a.toInt))
+      ()
+  )
+
+  println(
+    foldMap[String, ErrorOr, ErrorOr, Int]
       (List("a", "2", "c"))
       (a => Either.catchOnly[NumberFormatException](a.toInt))
       ()
