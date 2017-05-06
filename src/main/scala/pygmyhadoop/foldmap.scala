@@ -42,8 +42,8 @@ object foldmap {
   object naturalTransformation {
     def foldMap[A, F[_]: Monad, G[_]: Applicative, B: Monoid]
     (it: Iterable[A])
-    (nt: F[B] => G[B] = identity[F[B]](_))
     (func: A => F[B] = (a: A) => a.pure[Id])
+    (nt: F[B] => G[B] = identity[F[B]](_))
     : G[B] = it.foldLeft(Monoid[B].empty.pure[G]){ (g, a) =>
       (g |@| nt(func(a))).map(_ |+| _)
     }

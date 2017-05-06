@@ -16,21 +16,21 @@ object Main extends App {
   println(
     foldMap[String, ErrorOr, AllErrorsOr, Int]
       (List("1", "2", "3"))
-      ((f: ErrorOr[Int]) => f.toValidated.leftMap(List(_)))
       (a => Either.catchOnly[NumberFormatException](a.toInt))
+      ((f: ErrorOr[Int]) => f.toValidated.leftMap(List(_)))
   )
 
   println(
     foldMap[String, ErrorOr, AllErrorsOr, Int]
       (List("a", "2", "c"))
-      ((f: ErrorOr[Int]) => f.toValidated.leftMap(List(_)))
       (a => Either.catchOnly[NumberFormatException](a.toInt))
+      ((f: ErrorOr[Int]) => f.toValidated.leftMap(List(_)))
   )
 
   println(
     foldMap[String, ErrorOr, ErrorOr, Int]
       (List("a", "2", "c"))
-      ()
       (a => Either.catchOnly[NumberFormatException](a.toInt))
+      ()
   )
 }
