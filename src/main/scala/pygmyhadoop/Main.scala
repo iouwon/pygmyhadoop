@@ -11,17 +11,17 @@ import scala.language.{higherKinds, postfixOps}
 
 object Main extends App {
   type ErrorOr[A] = Either[NumberFormatException, A]
-  type ErrorsOr[A] = Validated[List[NumberFormatException], A]
+  type AllErrorsOr[A] = Validated[List[NumberFormatException], A]
 
   println(
-    foldMap[String, ErrorOr, ErrorsOr, Int]
+    foldMap[String, ErrorOr, AllErrorsOr, Int]
       (List("1", "2", "3"))
       ((f: ErrorOr[Int]) => f.toValidated.leftMap(List(_)))
       (a => Either.catchOnly[NumberFormatException](a.toInt))
   )
 
   println(
-    foldMap[String, ErrorOr, ErrorsOr, Int]
+    foldMap[String, ErrorOr, AllErrorsOr, Int]
       (List("a", "2", "c"))
       ((f: ErrorOr[Int]) => f.toValidated.leftMap(List(_)))
       (a => Either.catchOnly[NumberFormatException](a.toInt))
