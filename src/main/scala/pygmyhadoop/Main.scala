@@ -26,4 +26,11 @@ object Main extends App {
       ((f: ErrorOr[Int]) => f.toValidated.leftMap(List(_)))
       (a => Either.catchOnly[NumberFormatException](a.toInt))
   )
+
+  println(
+    foldMap[String, ErrorOr, ErrorOr, Int]
+      (List("a", "2", "c"))
+      ()
+      (a => Either.catchOnly[NumberFormatException](a.toInt))
+  )
 }
